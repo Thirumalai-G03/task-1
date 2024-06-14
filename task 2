@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Platform</title>
+  <style>
+    /* Add some basic styling */
+    .post {
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Our Blogging Platform</h1>
+  
+  <div id="posts-container">
+    <!-- Posts will be dynamically added here -->
+  </div>
+
+  <form id="post-form">
+    <input type="text" id="post-title" placeholder="Title"><br>
+    <textarea id="post-content" placeholder="Write your post..."></textarea><br>
+    <button type="submit">Publish</button>
+  </form>
+
+  <script>
+    // Array to store blog posts (initially empty)
+    let posts = [];
+
+    // Function to display posts
+    function displayPosts() {
+      const postsContainer = document.getElementById('posts-container');
+      postsContainer.innerHTML = '';
+      posts.forEach(post => {
+        const postElement = document.createElement('div');
+        postElement.classList.add('post');
+        postElement.innerHTML = `
+          <h2>${post.title}</h2>
+          <p>${post.content}</p>
+        `;
+        postsContainer.appendChild(postElement);
+      });
+    }
+
+    // Function to handle form submission
+    document.getElementById('post-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const postTitle = document.getElementById('post-title').value;
+      const postContent = document.getElementById('post-content').value;
+      const newPost = { title: postTitle, content: postContent };
+      posts.unshift(newPost); // Add new post to the beginning of the array
+      displayPosts(); // Update the UI
+      document.getElementById('post-title').value = ''; // Clear the title input field
+      document.getElementById('post-content').value = ''; // Clear the content input field
+    });
+
+    // Initial display of posts
+    displayPosts();
+  </script>
+</body>
+</html>
