@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Media Platform</title>
+  <style>
+    /* Add some basic styling */
+    .post {
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Our Social Media Platform</h1>
+  
+  <div id="posts-container">
+    <!-- Posts will be dynamically added here -->
+  </div>
+
+  <form id="post-form">
+    <textarea id="post-text" placeholder="Share something..."></textarea><br>
+    <button type="submit">Post</button>
+  </form>
+
+  <script>
+    // Mock data for demonstration
+    const posts = [
+      { username: "user1", text: "This is post 1" },
+      { username: "user2", text: "This is post 2" },
+      { username: "user3", text: "This is post 3" }
+    ];
+
+    // Function to display posts
+    function displayPosts() {
+      const postsContainer = document.getElementById('posts-container');
+      postsContainer.innerHTML = '';
+      posts.forEach(post => {
+        const postElement = document.createElement('div');
+        postElement.classList.add('post');
+        postElement.innerHTML = `<strong>${post.username}:</strong> ${post.text}`;
+        postsContainer.appendChild(postElement);
+      });
+    }
+
+    // Function to handle form submission
+    document.getElementById('post-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const postText = document.getElementById('post-text').value;
+      const newPost = { username: "currentUser", text: postText };
+      posts.unshift(newPost); // Add new post to the beginning of the array
+      displayPosts(); // Update the UI
+      document.getElementById('post-text').value = ''; // Clear the input field
+    });
+
+    // Initial display of posts
+    displayPosts();
+  </script>
+</body>
+</html>
